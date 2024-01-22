@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random_joke</title>
+    <style>
+      body {
+        text-align: center;
+        margin-top: 20%;
+      }
+      div {
+        margin-top: 10px;
+        padding: 10px;
+        font-size: medium;
+      }
+      button {
+        padding: 10px 30px;
+        color: white;
+        background-color: black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container">
+      <h3>Tell me a joke</h3>
+      <div id="joke">joke is loading...</div>
+      <button id="jokeBtn">click</button>
+    </div>
+    <script>
+      //GET https://icanhazdadjoke.com/
+      const joke = document.getElementById("joke");
+      const jokeBtn = document.getElementById("jokeBtn");
+      //==>using promies
+      // const getjoke = () => {
+      //   const setHeader = {
+      //     headers: {
+      //       Accept: "application/json",
+      //     },
+      //   };
+      //   fetch("https://icanhazdadjoke.com/", setHeader)
+      //     .then((res) =>res.json())
+      //     .then((data) => {
+      //       joke.innerHTML = data.joke;
+      //     })
+      //     .catch((error) => {
+      //       console.log(error);
+      //     });
+      // };
+      //====> using asyn & wait
+      const getjoke = async () => {
+        try {
+          const setHeader = {
+            headers: {
+              Accept: "application/json",
+            },
+          };
+          const respond = await fetch("https://icanhazdadjoke.com/", setHeader);
+          const data = await respond.json();
+          joke.innerHTML = data.joke;
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      jokeBtn.addEventListener("click", getjoke);
+      getjoke();
+    </script>
+  </body>
+</html>
